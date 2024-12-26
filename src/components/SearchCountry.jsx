@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 
-const SearchCountry = ({ setCurrentCountry }) => {
+const SearchCountry = ({ setCurrentCountryCode }) => {
     const [countries, setCountries] = useState([{}])
     const [searchQuery, setSearchQuery] = useState('')
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -27,7 +27,7 @@ const SearchCountry = ({ setCurrentCountry }) => {
     
     return (
         <>
-            <div className="relative">
+            <div className="relative tablet:pt-14">
                 
                 <div className="relative w-[500px]">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -61,9 +61,13 @@ const SearchCountry = ({ setCurrentCountry }) => {
                             )
                             .map((country) => (
                                 <li
-                                key={country.value}
-                                onClick={() => setCurrentCountry(country.value)}
-                                className="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0"
+                                    key={country.value}
+                                    onClick={() => {
+                                        setCurrentCountryCode(country.value)
+                                        setSearchQuery(country.label)
+                                        setIsDropdownOpen(false)
+                                    }}
+                                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0"
                                 >
                                     {country.label}
                                 </li>
