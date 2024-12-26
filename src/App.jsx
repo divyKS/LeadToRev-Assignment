@@ -24,6 +24,7 @@ function App() {
     const fetchCovidData = async (countryCode) => {
         try {
             const { currentCountryData, transformedData } = await fetchCovidHistoricalData(countryCode);
+            setCurrentCountryData(currentCountryData)
             setLineChartData(transformedData)
             setDateFilterLineChartData(transformedData)
         } catch (error) {
