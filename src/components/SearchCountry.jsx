@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
+import { fetchCountriesData } from '../api'
 
 const SearchCountry = ({ setCurrentCountryCode }) => {
     const [countries, setCountries] = useState([{}])
@@ -10,11 +10,7 @@ const SearchCountry = ({ setCurrentCountryCode }) => {
     useEffect(() => {
         const fetchCountries = async () => {
           try {
-            const response = await axios.get("https://restcountries.com/v3.1/all?fields=name,cca3");
-            const countryOptions = response.data.map((country) => ({
-              label: country.name.common,
-              value: country.cca3,
-            }));
+            const countryOptions = await fetchCountriesData();
             setCountries(countryOptions);
             // console.log(countryOptions);
           } catch (error) {

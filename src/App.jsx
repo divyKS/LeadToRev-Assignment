@@ -2,36 +2,28 @@ import React, { useEffect } from 'react'
 import './App.css'
 import { useState } from 'react'
 import SearchCountry from './components/SearchCountry'
-import axios from 'axios'
 import TotalCountCards from './components/TotalCountCards'
 import MyLineChart from './components/MyLineChart'
 import MyPieChart from './components/MyPieChart'
+import { fetchCovidHistoricalData } from './api'
 
 function App() {
     const [currentCountryCode, setCurrentCountryCode] = useState('USA')
     const [currentCountryData, setCurrentCountryData] = useState([{}])
+
     const [lineChartData, setLineChartData] = useState([{}])
     const [dateFilterLineChartData, setDateFilterLineChartData] = useState([{}])
+
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
+
     const [totalCases, setTotalCases] = useState(0)
     const [totalDeaths, setTotalDeaths] = useState(0)
     const [totalRecovered, setTotalRecovered] = useState(0)
 
     const fetchCovidData = async (countryCode) => {
         try {
-            const response = await axios.get(`https://disease.sh/v3/covid-19/historical/${countryCode}?lastdays=1500`)
-            setCurrentCountryData(response.data)
-
-            const { cases, deaths, recovered } = response.data.timeline
-
-            const transformedData = Object.keys(cases).map((date) => ({
-                date,
-                cases: cases[date],
-                deaths: deaths[date],
-                recovered: recovered[date],
-            }))
-
+            const { currentCountryData, transformedData } = await fetchCovidHistoricalData(countryCode);
             setLineChartData(transformedData)
             setDateFilterLineChartData(transformedData)
         } catch (error) {

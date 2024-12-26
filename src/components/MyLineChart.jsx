@@ -16,11 +16,11 @@ const MyLineChart = ({ dateFilterLineChartData }) => {
                 
                 <Legend />
 
-                <Line type="monotone" dataKey="cases" stroke="#8884d8" dot={false} activeDot={{ r: 6 }} />
+                <Line type="monotone" dataKey="cases" stroke="#8884d8" strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
 
-                <Line type="monotone" dataKey="deaths" stroke="#FF0000" dot={false} activeDot={{ r: 6 }} />
+                <Line type="monotone" dataKey="deaths" stroke="#FF0000" strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
 
-                <Line type="monotone" dataKey="recovered" stroke="#00FF00" dot={false} activeDot={{ r: 6 }} />
+                <Line type="monotone" dataKey="recovered" stroke="#00FF00" strokeWidth={3} dot={false} activeDot={{ r: 6 }} />
 
             </LineChart>
         </ResponsiveContainer>
